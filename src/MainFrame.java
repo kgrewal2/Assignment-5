@@ -9,7 +9,6 @@ public class MainFrame extends JFrame {
         setLocationRelativeTo(null);
         setResizable(false);
         setDefaultCloseOperation(EXIT_ON_CLOSE);
-
         setLayout(new BorderLayout());
         add(new MenuBar(), BorderLayout.NORTH);
         add(DrawingPanel.getInstance(), BorderLayout.CENTER);
@@ -21,7 +20,7 @@ public class MainFrame extends JFrame {
         mainFrame.setVisible(true);
     }
 
-    private static void setCommonUISettings(){
+    private static void setCommonUISettings() {
         System.setProperty("awt.useSystemAAFontSettings", "on");
         System.setProperty("swing.aatext", "true");
         try {

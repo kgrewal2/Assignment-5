@@ -1,27 +1,35 @@
 import javax.swing.*;
 import java.awt.event.ActionListener;
+import java.io.IOException;
 
 public class MenuBarControllers {
     public static ActionListener getFileOpenController() {
-        return e -> {
-            Repository.getInstance().openFile();
-        };
+        return e -> Repository.getInstance().openFile();
     }
 
     public static ActionListener getFileSaveController() {
-        return e -> System.out.println("Save Pressed");
+        return e -> {
+            try {
+                Repository.getInstance().saveFile();
+            } catch (IOException ioException) {
+                ioException.printStackTrace();
+            }
+        };
     }
 
     public static ActionListener getProjectNewController() {
-        return e -> System.out.println("New Project");
+        return e -> {
+            Repository.getInstance().reset();
+            TSPThreadControl.getInstance().reset();
+        };
     }
 
     public static ActionListener getProjectStartController() {
-        return e -> System.out.println("Start");
+        return e -> TSPThreadControl.getInstance().startAllThreads();
     }
 
     public static ActionListener getProjectStopController() {
-        return e -> System.out.println("Stop");
+        return e -> TSPThreadControl.getInstance().stopAllThreads();
     }
 
     public static ActionListener getAboutController() {
