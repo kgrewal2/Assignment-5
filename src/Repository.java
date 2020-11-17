@@ -49,11 +49,6 @@ public class Repository extends Observable {
                 shortestRoutes.remove(MAX_SHORTEST_ROUTES);
             }
         }
-        // TODO DISTANCES NOT CORRECT
-//        for (TSPRoute t : shortestRoutes) {
-//            System.out.print(t.getDistance() + ", ");
-//        }
-//        System.out.println("\n");
         notifyObservers();
     }
 
@@ -82,6 +77,7 @@ public class Repository extends Observable {
     }
 
     public void openFile() {
+        reset();
         String fileData = FileUtility.openFile();
         if (fileData != null) {
             fileData = fileData.replace("EOF", "");
@@ -91,8 +87,8 @@ public class Repository extends Observable {
                 calculateMultiplier();
                 scaleData();
             }
-            notifyObservers();
         }
+        notifyObservers();
     }
 
     private void assignXYBounds() {
@@ -158,8 +154,8 @@ public class Repository extends Observable {
     }
 
     private void calculateMultiplier() {
-        multiplierX = DrawingPanel.getInstance().getHeight() / getInstance().rangeX;
-        multiplierY = DrawingPanel.getInstance().getWidth() / getInstance().rangeY;
+        multiplierX = DrawingPanel.getInstance().getHeight() / rangeX;
+        multiplierY = DrawingPanel.getInstance().getWidth() / rangeY;
     }
 
     private double[] originalToScreenScale(double[] point) {
@@ -171,6 +167,7 @@ public class Repository extends Observable {
     public void reset() {
         cityDataList = new ArrayList<>();
         minX = minY = maxY = maxX = rangeX = rangeY = multiplierY = multiplierX = 0;
+        shortestRoutes = new CopyOnWriteArrayList<>();
         notifyObservers();
     }
 

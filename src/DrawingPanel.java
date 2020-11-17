@@ -15,9 +15,9 @@ public class DrawingPanel extends JPanel implements Observer {
         addMouseListener(DrawingPanelControllers.getDrawingPanel());
         setBackground(Color.WHITE);
         routeColors = new ArrayList<>();
-        routeColors.add(new Color(200, 0, 0, 40));
-        routeColors.add(new Color(0, 200, 0, 40));
-        routeColors.add(new Color(0, 0, 0, 20));
+        routeColors.add(new Color(255, 0, 0, 255));
+        routeColors.add(new Color(179, 0, 137, 255));
+        routeColors.add(new Color(0, 0, 0, 100));
     }
 
     public static DrawingPanel getInstance() {
@@ -56,19 +56,21 @@ public class DrawingPanel extends JPanel implements Observer {
 
     private void drawRoutes(Graphics graphics) {
         Graphics2D graphics2D = (Graphics2D) graphics;
-        System.out.println(Repository.getInstance().getShortestRoutes().size());
         int color = 0;
         for (TSPRoute t : Repository.getInstance().getShortestRoutes()) {
             graphics2D.setColor(routeColors.get(color));
+            graphics2D.setRenderingHint(RenderingHints.KEY_ANTIALIASING,
+                    RenderingHints.VALUE_ANTIALIAS_ON);
             graphics2D.setStroke(new BasicStroke(2));
             color++;
+            int shift = color * 2;
             List<Integer> route = t.getData();
             int cityA = route.get(0);
             for (int i = 1; i < route.size(); i++) {
                 int cityB = route.get(i);
                 double[] a = Repository.getInstance().getXYForCity(cityA);
                 double[] b = Repository.getInstance().getXYForCity(cityB);
-                graphics2D.drawLine((int) a[1], (int) a[2], (int) b[1], (int) b[2]); // TODO: PENDING (NOT WORKING)
+                graphics2D.drawLine((int) a[1] + shift, (int) a[2] + shift, (int) b[1] + shift, (int) b[2] + shift);
                 cityA = cityB;
             }
         }

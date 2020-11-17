@@ -36,6 +36,7 @@ public class TSPAlgo extends Thread {
                 tspRoute.addCity(nearestNeighbour);
                 tspRoute.addDistance(minDistance);
                 pendingCities.remove((Integer) nearestNeighbour);
+                temp = nearestNeighbour;
             }
             Repository.getInstance().addToTopRoutes(tspRoute);
             //ALGO COMPLETE FOR CITY

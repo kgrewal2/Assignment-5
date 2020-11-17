@@ -7,6 +7,7 @@ public class TSPThreadControl {
 
     private TSPThreadControl() {
         int maxThreads = Runtime.getRuntime().availableProcessors() - 1;
+//        int maxThreads = 1;
         if (maxThreads < 1)
             maxThreads = 1;
         threads = new TSPAlgo[maxThreads];
@@ -51,6 +52,8 @@ public class TSPThreadControl {
 
     public void stopAllThreads() {
         for (TSPAlgo t : threads) {
+            if (t==null)
+                return;
             t.suspend();
         }
         isRunning = false;
