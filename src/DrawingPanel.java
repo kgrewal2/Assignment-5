@@ -16,8 +16,8 @@ public class DrawingPanel extends JPanel implements Observer {
         setBackground(Color.WHITE);
         routeColors = new ArrayList<>();
         routeColors.add(new Color(255, 0, 0, 255));
-        routeColors.add(new Color(179, 0, 137, 255));
-        routeColors.add(new Color(0, 0, 0, 100));
+        routeColors.add(new Color(0, 255, 0, 255));
+        routeColors.add(new Color(0, 0, 255, 100));
     }
 
     public static DrawingPanel getInstance() {

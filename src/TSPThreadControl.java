@@ -7,7 +7,7 @@ public class TSPThreadControl {
     int totalThreads;
 
     private TSPThreadControl() {
-        totalThreads = Runtime.getRuntime().availableProcessors() - 1;
+        totalThreads = Runtime.getRuntime().availableProcessors() - Thread.activeCount();
         if (totalThreads < 1)
             totalThreads = 1;
         threads = new TSPAlgo[totalThreads];
