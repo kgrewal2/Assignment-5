@@ -2,7 +2,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class TSPAlgo extends Thread {
-    int id;
     int startCity, endCity;
     int currentCity;
 
@@ -18,7 +17,6 @@ public class TSPAlgo extends Thread {
         currentCity = startCity;
         while (currentCity <= endCity) {
             TSPRoute tspRoute = new TSPRoute();
-            //START ALGO FOR CITY
             int temp = currentCity;
             List<Integer> pendingCities = getRandomRoute();
             tspRoute.addCity(temp);
@@ -39,7 +37,6 @@ public class TSPAlgo extends Thread {
                 temp = nearestNeighbour;
             }
             Repository.getInstance().addToTopRoutes(tspRoute);
-            //ALGO COMPLETE FOR CITY
             currentCity++;
         }
     }

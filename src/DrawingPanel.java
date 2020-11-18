@@ -7,7 +7,7 @@ import java.util.Observer;
 
 public class DrawingPanel extends JPanel implements Observer {
     private static final Color CITY_COLOR = new Color(15, 15, 15);
-    private static final int CITY_RADIUS = 2;
+    private static final int CITY_RADIUS = 4;
     private static DrawingPanel drawingPanel;
     private final List<Color> routeColors;
 
@@ -47,7 +47,7 @@ public class DrawingPanel extends JPanel implements Observer {
         if (instance.isDataLoaded()) {
             for (int i = 0; i < instance.getLength(); i++) {
                 double[] point = instance.getXYForCity(i);
-                graphics.fillOval((int) point[Repository.INDEX_FOR_X] - CITY_RADIUS,
+                graphics.drawOval((int) point[Repository.INDEX_FOR_X] - CITY_RADIUS,
                         (int) point[Repository.INDEX_FOR_Y] - CITY_RADIUS, CITY_RADIUS * 2,
                         CITY_RADIUS * 2);
             }

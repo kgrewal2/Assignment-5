@@ -33,8 +33,6 @@ public class MenuBarControllers {
     }
 
     public static ActionListener getAboutController() {
-        return e -> {
-            JOptionPane.showMessageDialog(null, Repository.getInstance().getTeamInfo());
-        };
+        return e -> JOptionPane.showMessageDialog(null, Repository.getInstance().getTeamInfo());
     }
 }

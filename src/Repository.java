@@ -10,12 +10,12 @@ public class Repository extends Observable {
     final static int MAX_SHORTEST_ROUTES = 3;
     private static List<double[]> cityDataList = new ArrayList<>();
     private static Repository instance = null;
-    private final String TEAM_INFO = "Assignment 5 - Architecture\nProject by Karandeep Singh Grewal";
     private final int TOTAL_COLS = 3;
     public double minX, minY, maxX, maxY;
     public double rangeX, rangeY;
     private double multiplierX, multiplierY;
     private CopyOnWriteArrayList<TSPRoute> shortestRoutes = new CopyOnWriteArrayList<>();
+    private final String TEAM_INFO = "Assignment 5 - Architecture\nProject by Karandeep Singh Grewal";
 
     private Repository() {
     }
@@ -61,9 +61,7 @@ public class Repository extends Observable {
     }
 
     public boolean isDataLoaded() {
-        if (cityDataList == null)
-            return false;
-        return true;
+        return cityDataList != null;
     }
 
     @Override
@@ -77,9 +75,9 @@ public class Repository extends Observable {
     }
 
     public void openFile() {
-        reset();
         String fileData = FileUtility.openFile();
         if (fileData != null) {
+            reset();
             fileData = fileData.replace("EOF", "");
             cityDataList = stringToList(getCityDataString(fileData));
             if (getLength() > 0) {
@@ -111,7 +109,10 @@ public class Repository extends Observable {
 
     private String getCityDataString(String data_string) {
         int startIndex = data_string.indexOf("NODE_COORD_SECTION");
-        startIndex = data_string.indexOf("\n", startIndex) + 1;
+        if (startIndex == -1)
+            startIndex = 0;
+        else
+            startIndex = data_string.indexOf("\n", startIndex) + 1;
         return data_string.substring(startIndex);
     }
 
@@ -141,6 +142,12 @@ public class Repository extends Observable {
                 }
             }
         }
+        for (double[] l : list) {
+            for (double d : l)
+                System.out.print(d + ", ");
+            System.out.println("\n");
+        }
+
         return list;
     }
 
@@ -174,8 +181,7 @@ public class Repository extends Observable {
     public double getDistanceBetweenCities(int city1, int city2) {
         double[] city1Location = getXYForCity(city1);
         double[] city2Location = getXYForCity(city2);
-        double distance = Math.sqrt(Math.pow(city1Location[INDEX_FOR_X] - city2Location[INDEX_FOR_X], 2)
+        return Math.sqrt(Math.pow(city1Location[INDEX_FOR_X] - city2Location[INDEX_FOR_X], 2)
                 + Math.pow(city1Location[INDEX_FOR_Y] - city2Location[INDEX_FOR_Y], 2));
-        return distance;
     }
 }

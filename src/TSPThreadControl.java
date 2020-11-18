@@ -4,13 +4,13 @@ public class TSPThreadControl {
     int totalCities;
     boolean shouldStartFromScratch = true;
     boolean isRunning = false;
+    int totalThreads;
 
     private TSPThreadControl() {
-        int maxThreads = Runtime.getRuntime().availableProcessors() - 1;
-//        int maxThreads = 1;
-        if (maxThreads < 1)
-            maxThreads = 1;
-        threads = new TSPAlgo[maxThreads];
+        totalThreads = Runtime.getRuntime().availableProcessors() - 1;
+        if (totalThreads < 1)
+            totalThreads = 1;
+        threads = new TSPAlgo[totalThreads];
     }
 
     public static TSPThreadControl getInstance() {
@@ -30,7 +30,6 @@ public class TSPThreadControl {
                     end = totalCities - 1;
                 threads[i] = new TSPAlgo();
                 threads[i].setStartCity(start);
-                threads[i].id = i;
                 threads[i].setEndCity(end);
                 threads[i].start();
             }
